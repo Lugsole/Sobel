@@ -41,7 +41,7 @@ This is the method that the c variant uses.
 
 # Links
 Live server:
-https://lugsole.github.io/sobel/web
+https://lugsole.github.io/Sobel/web
 
 https://en.wikipedia.org/wiki/Gaussian_filter
 
