@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Canny edge detector</title>
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		html{
+			font-family: Sans-serif;
+		}
+	</style>
+</head>
+
+<body>
+	<input type="file" onchange="previewFile()"><br>
+	<img id="input" src="../images/sample_pic.png" alt="Input Image">
+	<h1>Black and white picture</h1>
+	<canvas id="black_white">
+		Your browser does not support the HTML5 canvas tag.</canvas>
+	<img id="img_black_white" />
+	<h1>Gaussian blur</h1>
+
+	<input type="range" min="1" max="10" value="1.4" step="0.1" id="myRange">
+	<button onclick="edge_detect()">Click me</button>
+	<p id="gaussian_sigma">1.4</p>
+	<canvas id="gaussian">
+		Your browser does not support the HTML5 canvas tag.</canvas>
+	<img id="img_gaussian" />
+	<h1>Sobel gradent detection</h1>
+	<canvas id="gradient">
+		Your browser does not support the HTML5 canvas tag.</canvas>
+	<img id="img_gradient" />
+	<h1>Non-Maximum Suppression</h1>
+	<canvas id="Non-Maximum">
+		Your browser does not support the HTML5 canvas tag.</canvas>
+	<img id="img_Non-Maximum" />
+
+
+
+	<p><strong>Note:</strong> The canvas tag is not supported in Internet
+		Explorer 8 and earlier versions.</p>
+	<script src="main.js"></script>
+</body>
+
+</html>
