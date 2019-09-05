@@ -5,7 +5,6 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <math.h>
-
 #define PNG_DEBUG 3
 #include <png.h>
 
@@ -145,11 +144,9 @@ void process_file(void)
                 abort_("[process_file] color_type of input file must be PNG_COLOR_TYPE_RGBA (%d) (is %d)",
                        PNG_COLOR_TYPE_RGBA, png_get_color_type(png_ptr, info_ptr));
         uint8_t *pointer_begining = (uint8_t *)malloc(height * width * sizeof(uint8_t));
-        printf("Memory size: %d\n", height * width * sizeof(uint8_t));
+        printf("Memory size: %ld\n", height * width * sizeof(uint8_t));
         printf("Memory space: %8x\n", pointer_begining);
-        printf("The data at place = %d\n", *pointer_begining);
-        printf("The data at place = %d\n", pointer_begining[4]);
-        printf("The data at place = %d\n", pointer_begining[width * height]);
+        /* convert the immage to a 1d array */
         for (y = 0; y < height; y++)
         {
                 png_byte *row = row_pointers[y];
@@ -164,6 +161,10 @@ void process_file(void)
                         //printf("pointer_begining[y(%d) * height(%d) + x(%d)] = %d\n", y, height, x, pointer_begining[y * height + x]);
                 }
         }
+
+
+
+        /* Aply a gausian blur */
         uint8_t Gaussian[5][5] = {
             {2, 4, 5, 4, 2},
             {4, 9, 12, 9, 4},
@@ -192,7 +193,7 @@ void process_file(void)
                                 new_array[y * width + x] = sum / 159;
                 }
         }
-
+        /* Find the lines */
         int8_t Gx[3][3] = {
             {-1, 0, 1},
             {-2, 0, 2},
@@ -223,6 +224,7 @@ void process_file(void)
                 }
         }
 
+        /* Convert back to an immage from point's */
         for (y = 0; y < height; y++)
         {
                 png_byte *row = row_pointers[y];
@@ -247,6 +249,7 @@ int main(int argc, char **argv)
 
         read_png_file(argv[1]);
         printf("Decode Done!\n");
+        printf("bit_depth: %d\n",bit_depth);
         process_file();
         printf("Encoding start!\n");
         write_png_file(argv[2]);
